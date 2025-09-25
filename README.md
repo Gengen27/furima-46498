@@ -28,7 +28,6 @@
 | scheduled_delivery_id  | integer    | null: false                    |
 | price                  | integer    | null: false                    |
 | user                   | references | null: false, foreign_key: true |
-| sold_out               | boolean    | null: false, default: false    |
 
 
 
@@ -40,10 +39,6 @@
 | ------ | ---------- | ------------------------------- |
 | user   | references | null: false, foreign_key: true  |
 | item   | references | null: false, foreign_key: true  |
-| paid   | boolean    | null: false, default: false     |
-| status | string     | null: false, default: "pending" |
-
-
 
 - belongs_to :user
 - belongs_to :item
