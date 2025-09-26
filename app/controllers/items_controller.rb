@@ -13,4 +13,3 @@ class ItemsController < ApplicationController
     # 商品登録処理
   end
 end
-
