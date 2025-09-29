@@ -18,6 +18,5 @@ class User < ApplicationRecord
   validates :birthday, presence: true
 
   # パスワード（半角英数字混合）
-  validates :password, presence: true,
-                       format: { with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/, message: 'は半角英数字混合で入力してください', allow_blank: true }
+  validates :password, format: { with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/, message: 'は半角英数字混合で入力してください', allow_blank: true }
 end
