@@ -1,10 +1,12 @@
-class AddDetailsToUsers < ActiveRecord::Migration[7.1]
+class AddNotNullToUsers < ActiveRecord::Migration[7.1]
   def change
-    add_column :users, :nickname, :string
-    add_column :users, :last_name, :string
-    add_column :users, :first_name, :string
-    add_column :users, :last_name_kana, :string
-    add_column :users, :first_name_kana, :string
-    add_column :users, :birthday, :date
+    change_column_null :users, :nickname, false
+    change_column_null :users, :last_name, false
+    change_column_null :users, :first_name, false
+    change_column_null :users, :last_name_kana, false
+    change_column_null :users, :first_name_kana, false
+    change_column_null :users, :birthday, false
   end
 end
+
+
