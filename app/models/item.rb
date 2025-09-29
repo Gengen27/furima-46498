@@ -24,7 +24,7 @@ class Item < ApplicationRecord
   end
 
   # ActiveHashの選択肢で「---」(id=1) を弾く
-  with_options numericality: { other_than: 1, message: "を入力してください" } do
+  with_options numericality: { other_than: 1 } do
     validates :category_id
     validates :condition_id
     validates :shipping_fee_id
