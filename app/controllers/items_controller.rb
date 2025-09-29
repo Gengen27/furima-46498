@@ -17,9 +17,9 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     @item.user = current_user
     if @item.save
-      redirect_to root_path, notice: "出品が完了しました"
+      redirect_to root_path, notice: '出品が完了しました'
     else
-      flash.now[:alert] = "入力内容に問題があります"
+      flash.now[:alert] = '入力内容に問題があります'
       render :new
     end
   end
