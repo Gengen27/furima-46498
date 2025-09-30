@@ -17,9 +17,8 @@ class ItemsController < ApplicationController
     @item = Item.new(item_params)
     @item.user = current_user
     if @item.save
-      redirect_to root_path, notice: '出品が完了しました'
+      redirect_to root_path, notice: '出品しました'
     else
-      flash.now[:alert] = '入力内容に問題があります'
       render :new
     end
   end
@@ -29,7 +28,7 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(
       :name, :description, :category_id, :condition_id,
-      :shipping_fee_status_id, :prefecture_id, :scheduled_delivery_id,
+      :shipping_fee_id, :prefecture_id, :shipping_day_id,
       :price, :image
     )
   end

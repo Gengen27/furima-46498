@@ -3,7 +3,7 @@ import "@hotwired/turbo-rails"
 import "controllers"
 import "@rails/request.js"
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
   const priceInput = document.getElementById('item-price');
   const addTaxPrice = document.getElementById('add-tax-price');
   const profit = document.getElementById('profit');
@@ -13,18 +13,17 @@ document.addEventListener('DOMContentLoaded', () => {
   priceInput.addEventListener('input', () => {
     const value = parseInt(priceInput.value, 10);
 
-    if (isNaN(value) || value < 0) {
+    if (isNaN(value) || value < 300 || value > 9999999) {
       addTaxPrice.textContent = '0';
       profit.textContent = '0';
       return;
     }
 
-    // 手数料10％（小数切り捨て）
-    const fee = Math.floor(value * 0.1);
-    // 利益
-    const gain = value - fee;
+    const fee = Math.floor(value * 0.1); // 手数料10％
+    const gain = value - fee;            // 利益
 
     addTaxPrice.textContent = fee.toLocaleString();
     profit.textContent = gain.toLocaleString();
   });
 });
+
