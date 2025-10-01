@@ -28,8 +28,9 @@ class ItemsController < ApplicationController
   end
 
   def update
+    # 画像が空なら除外して更新する
     update_params = item_params
-    update_params = update_params.except(:image) if update_params[:image].blank?
+    update_params = item_params.except(:image) if item_params[:image].blank?
 
     if @item.update(update_params)
       redirect_to item_path(@item), notice: '商品情報を更新しました'
@@ -37,6 +38,7 @@ class ItemsController < ApplicationController
       render :edit, status: :unprocessable_entity
     end
   end
+
 
 private
 
