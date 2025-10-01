@@ -10,7 +10,7 @@ class ItemsController < ApplicationController
   def show
     # @item は set_item でセットされる
     # nil の場合はリダイレクト
-    redirect_to root_path, alert: "商品が存在しません" if @item.nil?
+    redirect_to root_path, alert: '商品が存在しません' if @item.nil?
   end
 
   def new
@@ -42,8 +42,7 @@ class ItemsController < ApplicationController
     end
   end
 
-
-private
+  private
 
   def item_params
     params.require(:item).permit(
@@ -60,6 +59,4 @@ private
   def move_to_root
     redirect_to root_path unless current_user == @item.user
   end
-
 end
-
