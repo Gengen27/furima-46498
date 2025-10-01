@@ -8,8 +8,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    # @item は set_item でセットされる
-    # nil の場合はリダイレクト
     redirect_to root_path, alert: '商品が存在しません' if @item.nil?
   end
 
