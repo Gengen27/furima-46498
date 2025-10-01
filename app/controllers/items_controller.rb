@@ -1,5 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_item, only: [:edit, :update]
+  before_action :move_to_root, only: [:edit, :update]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -22,7 +24,21 @@ class ItemsController < ApplicationController
     end
   end
 
-  private
+  def edit
+  end
+
+  def update
+    update_params = item_params
+    update_params = update_params.except(:image) if update_params[:image].blank?
+
+    if @item.update(update_params)
+      redirect_to item_path(@item), notice: '商品情報を更新しました'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+private
 
   def item_params
     params.require(:item).permit(
@@ -31,4 +47,14 @@ class ItemsController < ApplicationController
       :price, :image
     )
   end
+
+  def set_item
+    @item = Item.find(params[:id])
+  end
+
+  def move_to_root
+    redirect_to root_path unless current_user == @item.user
+  end
+
 end
+
