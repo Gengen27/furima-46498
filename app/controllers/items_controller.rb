@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:edit, :update]
+  before_action :set_item, only: [:show, :edit, :update]
   before_action :move_to_root, only: [:edit, :update]
 
   def index
@@ -8,6 +8,9 @@ class ItemsController < ApplicationController
   end
 
   def show
+    # @item は set_item でセットされる
+    # nil の場合はリダイレクト
+    redirect_to root_path, alert: "商品が存在しません" if @item.nil?
   end
 
   def new
@@ -51,7 +54,7 @@ private
   end
 
   def set_item
-    @item = Item.find(params[:id])
+    @item = Item.find_by(id: params[:id])
   end
 
   def move_to_root
