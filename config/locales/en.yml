@@ -29,3 +29,15 @@
 
 en:
   hello: "Hello world"
+  activemodel:
+    attributes:
+      order_address:
+        user_id: User ID
+        item_id: Item ID
+        postal_code: Postal code
+        prefecture_id: Prefecture
+        city: City
+        house_number: House number
+        building_name: Building name
+        phone_number: Phone number
+        token: Token

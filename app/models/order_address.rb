@@ -4,39 +4,47 @@ class OrderAddress
 
   attr_accessor :user_id, :item_id,
                 :postal_code, :prefecture_id, :city,
-                :house_number, :building_name, :phone_number
+                :house_number, :building_name, :phone_number, :token
 
-  # 必須項目チェック
-  with_options presence: true do
-    validates :user_id
-    validates :item_id
-    validates :postal_code
-    validates :prefecture_id
-    validates :city
-    validates :house_number
-    validates :phone_number
-  end
-
-  # 郵便番号のフォーマット
-  validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'is invalid. Include hyphen(-)' }
-
-  # 電話番号のフォーマット（10〜11桁の半角数字）
-  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid' }
-
-  # prefecture_id の numericality（未選択の1は弾く）
+  # バリデーションの定義
+  validate :validate_required_fields
+  validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid. Include hyphen(-)" }, allow_blank: false
+  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid" }, allow_blank: false
   validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
+
+  private
+
+  def validate_required_fields
+    errors.add(:user_id, "can't be blank") if user_id.blank?
+    errors.add(:item_id, "can't be blank") if item_id.blank?
+    errors.add(:city, "can't be blank") if city.blank?
+    errors.add(:house_number, "can't be blank") if house_number.blank?
+    errors.add(:token, "can't be blank") if token.blank?
+    errors.add(:postal_code, "can't be blank") if postal_code.blank?
+    errors.add(:phone_number, "can't be blank") if phone_number.blank?
+    errors.add(:prefecture_id, "can't be blank") if prefecture_id.blank?
+  end
+  
+  # building_nameは任意項目（バリデーションなし）
 
   # 保存処理
   def save
-    order = Order.create(user_id: user_id, item_id: item_id)
-    Address.create(
-      postal_code: postal_code,
-      prefecture_id: prefecture_id,
-      city: city,
-      house_number: house_number,
-      building_name: building_name,
-      phone_number: phone_number,
-      order_id: order.id
-    )
+    return false unless valid?
+    
+    ActiveRecord::Base.transaction do
+      order = Order.create!(user_id: user_id, item_id: item_id)
+      Address.create!(
+        postal_code: postal_code,
+        prefecture_id: prefecture_id,
+        city: city,
+        house_number: house_number,
+        building_name: building_name,
+        phone_number: phone_number,
+        order_id: order.id
+      )
+    end
+    true
+  rescue ActiveRecord::RecordInvalid
+    false
   end
 end
