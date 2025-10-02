@@ -19,10 +19,10 @@ class OrderAddress
   end
 
   # 郵便番号のフォーマット
-  validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid. Include hyphen(-)" }
+  validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'is invalid. Include hyphen(-)' }
 
   # 電話番号のフォーマット（10〜11桁の半角数字）
-  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is invalid" }
+  validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'is invalid' }
 
   # prefecture_id の numericality（未選択の1は弾く）
   validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }

@@ -35,5 +35,4 @@ class Item < ApplicationRecord
   def sold_out?
     order.present?
   end
-  
 end

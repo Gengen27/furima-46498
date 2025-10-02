@@ -45,7 +45,7 @@ class ItemsController < ApplicationController
     redirect_to root_path, notice: '商品を削除しました'
   end
 
-private
+  private
 
   def item_params
     params.require(:item).permit(
@@ -61,8 +61,8 @@ private
 
   def move_to_root
     # 出品者ではない、または売却済みの場合はトップページへ
-    if current_user != @item.user || @item.sold_out?
-      redirect_to root_path, alert: "編集・削除できない商品です"
-    end
+    return unless current_user != @item.user || @item.sold_out?
+
+    redirect_to root_path, alert: '編集・削除できない商品です'
   end
 end
