@@ -138,14 +138,11 @@
                   <%= image_tag "item-sample.png", class: "item-img" %>
                 <% end %>
 
-                <%# 商品が売れていれば sold out を表示する（購入機能実装後に対応） %>
-                <%# if item.sold_out? %>
-                <!--
-                <div class='sold-out'>
-                  <span>Sold Out!!</span>
-                </div>
-                -->
-                <%# end %>
+                <% if item.sold_out? %>
+                  <div class='sold-out'>
+                    <span>Sold Out!!</span>
+                  </div>
+                <% end %>
               </div>
               <div class='item-info'>
                 <h3 class='item-name'>

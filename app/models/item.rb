@@ -1,6 +1,7 @@
 class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
+  has_one :order, dependent: :destroy
 
   # ActiveHashとの関連付け
   extend ActiveHash::Associations::ActiveRecordExtensions
@@ -30,4 +31,9 @@ class Item < ApplicationRecord
     validates :prefecture_id
     validates :shipping_day_id
   end
+
+  def sold_out?
+    order.present?
+  end
+  
 end

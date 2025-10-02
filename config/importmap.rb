@@ -7,3 +7,5 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "item_price", to: "item_price.js"
 pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.12
+pin "order", to: "order.js"
+pin "card", to: "card.js"
