@@ -13,6 +13,12 @@
         <% else %>
           <%= image_tag "item-sample.png", class: "item-box-img" %>
         <% end %>
+        <%# 商品が売れている場合はsold outを表示 %>
+        <% if @item.sold_out? %>
+          <div class="sold-out">
+            <span>Sold Out!!</span>
+          </div>
+        <% end %>
       </div>
 
       <div class="item-price-box">
