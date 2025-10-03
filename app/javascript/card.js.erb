@@ -10,9 +10,7 @@ if (!payjpPublicKey || payjpPublicKey === '') {
 }
 
 const payjp = Payjp(payjpPublicKey);
-console.log('PAY.JP initialized:', payjp);
 const elements = payjp.elements();
-console.log('PAY.JP elements:', elements);
 
 const numberElement = elements.create('cardNumber');
 const expiryElement = elements.create('cardExpiry');

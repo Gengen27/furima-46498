@@ -28,8 +28,6 @@ class OrdersController < ApplicationController
       @order_address.save
       redirect_to root_path, notice: '購入が完了しました'
     else
-      # バリデーションエラー内容をログに出力
-      Rails.logger.debug("OrderAddress errors: #{@order_address.errors.full_messages}")
       render :index, status: :unprocessable_entity
     end
   end
