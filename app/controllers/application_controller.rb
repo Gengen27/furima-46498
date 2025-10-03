@@ -28,5 +28,9 @@ class ApplicationController < ActionController::Base
   # JSに環境変数を渡す
   def set_gon
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+    
+    # デバッグ用：環境変数の確認
+    Rails.logger.debug("PAYJP_PUBLIC_KEY: #{ENV['PAYJP_PUBLIC_KEY'].present? ? '設定済み' : '未設定'}")
+    Rails.logger.debug("PAYJP_SECRET_KEY: #{ENV['PAYJP_SECRET_KEY'].present? ? '設定済み' : '未設定'}")
   end
 end

@@ -13,6 +13,11 @@ class OrdersController < ApplicationController
     if @order_address.valid?
       # PAY.JP課金処理
       Payjp.api_key = ENV['PAYJP_SECRET_KEY']
+      
+      # デバッグ用：APIキーが設定されているか確認
+      Rails.logger.debug("PAYJP_SECRET_KEY: #{ENV['PAYJP_SECRET_KEY'].present? ? '設定済み' : '未設定'}")
+      Rails.logger.debug("PAYJP_SECRET_KEY value: #{ENV['PAYJP_SECRET_KEY']}")
+      
       Payjp::Charge.create(
         amount: @item.price,
         card: params[:token],

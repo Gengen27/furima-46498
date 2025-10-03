@@ -6,6 +6,10 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <script type="text/javascript" src="https://js.pay.jp/v2/pay.js"></script>
+  <!-- PAY.JPライブラリの読み込み確認 -->
+  <script>
+    console.log('PAY.JP library loaded:', typeof Payjp !== 'undefined');
+  </script>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
   <meta name="payjp-public-key" content="<%= ENV["PAYJP_PUBLIC_KEY"] %>">

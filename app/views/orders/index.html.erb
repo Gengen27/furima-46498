@@ -37,10 +37,24 @@
     <%# /支払額の表示 %>
 
     <%= form_with model: @order_address, url: item_orders_path(@item), local: true, id: "charge-form" do |f| %>
+    
+    <%# サーバーサイドのバリデーションエラー表示 %>
+    <% if @order_address&.errors&.any? %>
+      <div class="error-messages" style="color: red; margin-bottom: 20px; padding: 15px; background-color: #ffe6e6; border: 1px solid #ff9999; border-radius: 4px;">
+        <h3 style="margin-top: 0; color: red;">入力内容にエラーがあります：</h3>
+        <ul style="margin: 0; padding-left: 20px;">
+          <% @order_address.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
     <div class='credit-card-form'>
       <h1 class='info-input-haedline'>
         クレジットカード情報入力
       </h1>
+      <div id="card-error-message" class="error-message" style="display: none; color: red; margin-bottom: 10px; padding: 10px; background-color: #ffe6e6; border: 1px solid #ff9999; border-radius: 4px; font-weight: bold;"></div>
       <div class="form-group">
         <div class='form-text-wrap'>
           <label class="form-text">カード情報</label>
