@@ -7,14 +7,10 @@ class OrderAddress
                 :house_number, :building_name, :phone_number, :token
 
   # バリデーションの定義
-  validates :user_id, presence: true
-  validates :item_id, presence: true
+  validates :user_id, :item_id, :city, :house_number, :token, presence: true
   validates :postal_code, presence: true, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid. Include hyphen(-)" }
   validates :prefecture_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
-  validates :city, presence: true
-  validates :house_number, presence: true
   validates :phone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: "is invalid" }
-  validates :token, presence: true
   
   # building_nameは任意項目（バリデーションなし）
 

@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_item
   before_action :move_to_root
+  before_action :set_gon
 
   def index
     @order_address = OrderAddress.new
@@ -14,9 +15,6 @@ class OrdersController < ApplicationController
       # PAY.JP課金処理
       Payjp.api_key = ENV['PAYJP_SECRET_KEY']
       
-      # デバッグ用：APIキーが設定されているか確認
-      Rails.logger.debug("PAYJP_SECRET_KEY: #{ENV['PAYJP_SECRET_KEY'].present? ? '設定済み' : '未設定'}")
-      Rails.logger.debug("PAYJP_SECRET_KEY value: #{ENV['PAYJP_SECRET_KEY']}")
       
       Payjp::Charge.create(
         amount: @item.price,
@@ -47,5 +45,9 @@ class OrdersController < ApplicationController
 
   def move_to_root
     redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
+  end
+
+  def set_gon
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
   end
 end

@@ -1,4 +1,4 @@
-document.addEventListener("turbo:load", function() {
+function initializePayjp() {
   const form = document.getElementById("charge-form");
   if (!form) return; // form がないページでは処理しない
 
@@ -34,7 +34,11 @@ document.addEventListener("turbo:load", function() {
       }
     });
   });
-});
+}
+
+// turbo:load と turbo:render の両方で初期化
+document.addEventListener("turbo:load", initializePayjp);
+document.addEventListener("turbo:render", initializePayjp);
 
 
 

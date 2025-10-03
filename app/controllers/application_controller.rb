@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
 
   before_action :basic_auth
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_gon
 
   protected
 
@@ -25,12 +24,4 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # JSに環境変数を渡す
-  def set_gon
-    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-    
-    # デバッグ用：環境変数の確認
-    Rails.logger.debug("PAYJP_PUBLIC_KEY: #{ENV['PAYJP_PUBLIC_KEY'].present? ? '設定済み' : '未設定'}")
-    Rails.logger.debug("PAYJP_SECRET_KEY: #{ENV['PAYJP_SECRET_KEY'].present? ? '設定済み' : '未設定'}")
-  end
 end
