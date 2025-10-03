@@ -1,25 +1,27 @@
-const calculatePrice = () => {
-  const priceInput = document.getElementById('item-price'); // 実際の input id に合わせる
-  const feeDisplay = document.getElementById('add-tax-price');
-  const profitDisplay = document.getElementById('profit');
-
+const priceCalculation = () => {
+  const priceInput = document.getElementById('item-price');
   if (!priceInput) return;
-
-  priceInput.addEventListener('input', () => {
-    const price = parseInt(priceInput.value, 10);
+  
+  priceInput.addEventListener("input", () => {
+    const inputValue = priceInput.value;
+    const addTaxDom = document.getElementById("add-tax-price");
+    const profitDom = document.getElementById("profit");
+    
+    // 要素が存在しない場合は処理を中断
+    if (!addTaxDom || !profitDom) return;
+    
+    const price = parseInt(inputValue, 10);
+    
     if (!isNaN(price)) {
       const fee = Math.floor(price * 0.1);
       const profit = price - fee;
-      feeDisplay.textContent = fee;
-      profitDisplay.textContent = profit;
+      addTaxDom.innerHTML = fee.toLocaleString();
+      profitDom.innerHTML = profit.toLocaleString();
     } else {
-      feeDisplay.textContent = 0;
-      profitDisplay.textContent = 0;
+      // 入力が数値でない場合（空文字など）は表示をリセット
+      addTaxDom.innerHTML = 'ー';
+      profitDom.innerHTML = 'ー';
     }
-  });
+  })
 };
-
-
-document.addEventListener('turbo:load', calculatePrice);
-document.addEventListener('turbo:render', calculatePrice);
-
+window.addEventListener('turbo:load', priceCalculation);

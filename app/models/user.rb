@@ -19,4 +19,8 @@ class User < ApplicationRecord
 
   # パスワード（半角英数字混合）
   validates :password, format: { with: /\A(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+\z/, message: 'は半角英数字混合で入力してください', allow_blank: true }
+
+  has_many :items
+  has_many :orders
+
 end

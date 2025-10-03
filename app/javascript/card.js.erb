@@ -1,0 +1,64 @@
+// デバッグ用：公開鍵が設定されているか確認
+console.log('PAYJP_PUBLIC_KEY:', payjpPublicKey);
+console.log('PAYJP_PUBLIC_KEY length:', payjpPublicKey ? payjpPublicKey.length : 0);
+if (!payjpPublicKey || payjpPublicKey === '') {
+  console.error('PAYJP_PUBLIC_KEYが設定されていません');
+} else if (!payjpPublicKey.startsWith('pk_test_')) {
+  console.error('PAYJP_PUBLIC_KEYがテスト用キーではありません:', payjpPublicKey);
+}
+
+const payjp = Payjp(payjpPublicKey);
+const elements = payjp.elements();
+
+const numberElement = elements.create('cardNumber');
+const expiryElement = elements.create('cardExpiry');
+const cvcElement = elements.create('cardCvc');
+
+numberElement.mount('#number-form');
+expiryElement.mount('#expiry-form');
+cvcElement.mount('#cvc-form');
+
+const form = document.getElementById('charge-form');
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  payjp.createToken(numberElement).then((response) => {
+    if (response.error) {
+      // デバッグ用：コンソールにエラー内容を出力
+      console.log('PAY.JP Error:', response.error);
+      console.log('Error status:', response.error.status);
+      console.log('Error code:', response.error.code);
+      console.log('Error message:', response.error.message);
+      
+      // エラーメッセージをページに表示
+      const errorDiv = document.getElementById('card-error-message');
+      if (errorDiv) {
+        let errorMessage = response.error.message;
+        
+        // 402エラーの場合は特別なメッセージを表示
+        if (response.error.status === 402) {
+          errorMessage = 'PAY.JPのAPIキーが正しく設定されていません。テスト用のAPIキーを設定してください。';
+        }
+        
+        errorDiv.textContent = errorMessage;
+        errorDiv.style.display = 'block';
+      }
+      return;
+    }
+    const token = response.id;
+    const tokenInput = document.createElement("input");
+    tokenInput.setAttribute("type", "hidden");
+    tokenInput.setAttribute("name", "token");
+    tokenInput.setAttribute("value", token);
+    form.appendChild(tokenInput);
+
+    // エラーメッセージをクリア
+    const errorDiv = document.getElementById('card-error-message');
+    if (errorDiv) {
+      errorDiv.style.display = 'none';
+    }
+
+    // フォーム送信（サーバーサイドのバリデーションエラーはページリロードで表示される）
+    form.submit();
+  });
+});

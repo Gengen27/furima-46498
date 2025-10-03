@@ -60,6 +60,9 @@ class ItemsController < ApplicationController
   end
 
   def move_to_root
-    redirect_to root_path unless current_user == @item.user
+    # 出品者ではない、または売却済みの場合はトップページへ
+    return unless current_user != @item.user || @item.sold_out?
+
+    redirect_to root_path, alert: '編集・削除できない商品です'
   end
 end
