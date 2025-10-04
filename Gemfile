@@ -78,9 +78,6 @@ gem 'devise'
 
 group :development, :test do
   gem 'dotenv-rails'
-end
-
-group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'faker'
@@ -92,5 +89,3 @@ gem 'payjp'
 gem 'gon'
 
 gem 'aws-sdk-s3', require: false
-
-gem 'dotenv-rails', groups: [:development, :test]
