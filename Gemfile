@@ -91,4 +91,6 @@ gem 'active_hash'
 gem 'payjp'
 gem 'gon'
 
+gem 'aws-sdk-s3', require: false
+
 gem 'dotenv-rails', groups: [:development, :test]
