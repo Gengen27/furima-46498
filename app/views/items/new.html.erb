@@ -9,7 +9,7 @@
     <%= form_with model: @item, local: true, data: { turbo: false } do |f| %>
 
       <%# エラーメッセージ表示 %>
-      <%= render 'shared/error_messages', model: f.object %>
+      <%= render 'shared/error_messages', object: @item %>
 
       <%# 商品画像 %>
       <div class="img-upload">
