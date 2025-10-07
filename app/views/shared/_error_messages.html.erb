@@ -1,11 +1,10 @@
 <% object ||= local_assigns[:object] %>
 <% if object&.errors&.any? %>
-  <div class="error-messages" style="color: red; margin-bottom: 20px; padding: 15px; background-color: #ffe6e6; border: 1px solid #ff9999; border-radius: 4px;">
-    <h3 style="margin-top: 0; color: red;">入力内容にエラーがあります：</h3>
-    <ul style="margin: 0; padding-left: 20px;">
-      <% object.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
+  <ul style="margin: 0; padding: 0; list-style: none;">
+    <% object.errors.full_messages.each do |message| %>
+      <li style="color: #CD5C5C; margin-bottom: 5px; font-size: 14px; line-height: 1.4;">
+        • <%= message %>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
