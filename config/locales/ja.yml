@@ -11,6 +11,19 @@ ja:
         shipping_fee_id: "Shipping fee status"
         prefecture_id: "Prefecture"
         shipping_day_id: "Scheduled delivery"
+    errors:
+      models:
+        item:
+          attributes:
+            image:
+              blank: "can't be blank"
+            name:
+              blank: "can't be blank"
+            description:
+              blank: "can't be blank"
+            price:
+              blank: "can't be blank"
+              not_a_number: "is not a number"
   activemodel:
     attributes:
       order_address:
@@ -20,4 +33,18 @@ ja:
         city: "City"
         house_number: "Addresses"
         phone_number: "Phone number"
+    errors:
+      models:
+        order_address:
+          attributes:
+            token:
+              blank: "can't be blank"
+            postal_code:
+              blank: "can't be blank"
+            city:
+              blank: "can't be blank"
+            house_number:
+              blank: "can't be blank"
+            phone_number:
+              blank: "can't be blank"
 

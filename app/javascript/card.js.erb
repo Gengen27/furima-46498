@@ -45,6 +45,23 @@ try {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
 
+      // 全ての入力フィールドが空かチェック
+      const postalCode = document.getElementById('postal-code')?.value.trim() || '';
+      const prefecture = document.getElementById('prefecture')?.value || '1';
+      const city = document.getElementById('city')?.value.trim() || '';
+      const addresses = document.getElementById('addresses')?.value.trim() || '';
+      const phoneNumber = document.getElementById('phone-number')?.value.trim() || '';
+
+      console.log('入力チェック:', { postalCode, prefecture, city, addresses, phoneNumber });
+
+      // 住所・電話番号が全て空の場合、カード情報もチェックせずサーバー側バリデーションに進む
+      if (!postalCode && prefecture === '1' && !city && !addresses && !phoneNumber) {
+        console.log('入力情報が未入力のため、サーバー側バリデーションに進みます');
+        form.submit();
+        return;
+      }
+
+      console.log('PAY.JPトークン生成を開始します');
       payjp.createToken(numberElement).then((response) => {
         if (response.error) {
           // デバッグ用：コンソールにエラー内容を出力
