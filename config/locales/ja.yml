@@ -1,0 +1,23 @@
+ja:
+  activerecord:
+    attributes:
+      item:
+        image: "Image"
+        name: "Name"
+        description: "Info"
+        price: "Price"
+        category_id: "Category"
+        condition_id: "Sales status"
+        shipping_fee_id: "Shipping fee status"
+        prefecture_id: "Prefecture"
+        shipping_day_id: "Scheduled delivery"
+  activemodel:
+    attributes:
+      order_address:
+        token: "Token"
+        postal_code: "Postal code"
+        prefecture_id: "Prefecture"
+        city: "City"
+        house_number: "Addresses"
+        phone_number: "Phone number"
+

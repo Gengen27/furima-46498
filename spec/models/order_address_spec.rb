@@ -42,7 +42,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'postal_codeが不正な形式だと購入できない' do
         order_address.postal_code = '1234567'
         expect(order_address).not_to be_valid
-        expect(order_address.errors[:postal_code]).to include("is invalid. Include hyphen(-)")
+        expect(order_address.errors[:postal_code]).to include("is invalid. Enter it as follows (e.g. 123-4567)")
       end
 
       it 'prefecture_idが1だと購入できない' do
@@ -72,19 +72,19 @@ RSpec.describe OrderAddress, type: :model do
       it '電話番号が9桁未満だと購入できない' do
         order_address.phone_number = '12345678'
         expect(order_address).not_to be_valid
-        expect(order_address.errors[:phone_number]).to include("is invalid")
+        expect(order_address.errors[:phone_number]).to include("is too short")
       end
 
       it '電話番号が12桁以上だと購入できない' do
         order_address.phone_number = '123456789012'
         expect(order_address).not_to be_valid
-        expect(order_address.errors[:phone_number]).to include("is invalid")
+        expect(order_address.errors[:phone_number]).to include("is invalid. Input only number")
       end
 
       it '電話番号が数字以外だと購入できない' do
         order_address.phone_number = '090-1234-5678'
         expect(order_address).not_to be_valid
-        expect(order_address.errors[:phone_number]).to include("is invalid")
+        expect(order_address.errors[:phone_number]).to include("is invalid. Input only number")
       end
 
       it 'tokenが空だと購入できない' do

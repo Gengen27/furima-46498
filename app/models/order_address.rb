@@ -8,11 +8,20 @@ class OrderAddress
 
   # バリデーションの定義
   validates :user_id, :item_id, :city, :house_number, :token, presence: true
-  validates :postal_code, presence: true, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid. Include hyphen(-)" }
+  validates :postal_code, presence: true, format: { with: /\A\d{3}-\d{4}\z/, message: "is invalid. Enter it as follows (e.g. 123-4567)" }
   validates :prefecture_id, presence: true, numericality: { other_than: 1, message: "can't be blank" }
-  validates :phone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: "is invalid" }
+  validates :phone_number, presence: true, length: { minimum: 10, message: "is too short" }
+  validate :phone_number_format
   
   # building_nameは任意項目（バリデーションなし）
+
+  # カスタムバリデーション
+  def phone_number_format
+    return if phone_number.blank?
+    unless phone_number.match?(/\A\d{10,11}\z/)
+      errors.add(:phone_number, "is invalid. Input only number")
+    end
+  end
 
   # 保存処理
   def save
