@@ -16,6 +16,16 @@ ja:
         shipping_fee_id: "Shipping fee status"
         prefecture_id: "Prefecture"
         shipping_day_id: "Scheduled delivery"
+      user:
+        email: "Email"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        nickname: "Nickname"
+        last_name: "Last name"
+        first_name: "First name"
+        last_name_kana: "Last name kana"
+        first_name_kana: "First name kana"
+        birthday: "Birthday"
     errors:
       models:
         item:
@@ -29,6 +39,24 @@ ja:
             price:
               blank: "can't be blank"
               not_a_number: "is not a number"
+        user:
+          attributes:
+            email:
+              blank: "can't be blank"
+            password:
+              blank: "can't be blank"
+            nickname:
+              blank: "can't be blank"
+            last_name:
+              blank: "can't be blank"
+            first_name:
+              blank: "can't be blank"
+            last_name_kana:
+              blank: "can't be blank"
+            first_name_kana:
+              blank: "can't be blank"
+            birthday:
+              blank: "can't be blank"
   activemodel:
     attributes:
       order_address:

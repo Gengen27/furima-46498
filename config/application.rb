@@ -27,5 +27,8 @@ module Furima46498
     # i18n設定
     config.i18n.default_locale = :ja
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+    # CSRF保護の設定: OriginヘッダーとX-Forwarded-Portを正しく処理
+    config.action_controller.forgery_protection_origin_check = true
   end
 end

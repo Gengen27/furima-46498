@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_action :basic_auth
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_gon
 
   protected
 
@@ -22,6 +23,11 @@ class ApplicationController < ActionController::Base
       username == ENV['BASIC_AUTH_USER'] &&
         password == ENV['BASIC_AUTH_PASSWORD']
     end
+  end
+
+  # Gonの設定
+  def set_gon
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
   end
 
 end
